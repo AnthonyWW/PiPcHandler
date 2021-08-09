@@ -17,6 +17,7 @@ print("Do Ctrl+c to exit the program")
 
 
 server_address = (ip, port)
+send_data = ""
 
 while (send_data != 'q'):
     send_data = input("Type some text to send or press q to exit=>")
