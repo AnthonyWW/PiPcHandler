@@ -1,6 +1,6 @@
 import socket
 import sys
-import ipaddress as ipa
+import os
 
 if len(sys.argv) == 4:
     # Get "IP address of Server" and also the "port number" from argument 1 and argument 2
@@ -26,14 +26,19 @@ if(operationMode == "client"):
         print("\n\n 1. Client Sent : ", send_data, "\n\n")
         #data, address = sckt.recvfrom(4096)
         #print("\n\n 2. Client received : ", data.decode('utf-8'), "\n\n")
+
 elif(operationMode == "server"):
     sckt.bind(server_address)
+
     while True:
         print("####### Server is listening #######")
         data, address = sckt.recvfrom(4096)
+        dataString = data.decode('utf-8')
         print("\n\n 2. Server received: ", data.decode('utf-8'), "\n\n")
-        send_data = input("Type some text to send => ")
-        sckt.sendto(send_data.encode('utf-8'), address)
-        print("\n\n 1. Server sent : ", send_data,"\n\n")
+
+        if(dataString == "shutdown"):
+            os.system("shutdown /s /t 1")
+            
+
 
 sckt.close()
