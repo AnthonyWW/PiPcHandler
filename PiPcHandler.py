@@ -4,9 +4,9 @@ import os
 
 if len(sys.argv) == 4:
     # Get "IP address of Server" and also the "port number" from argument 1 and argument 2
-    ip = sys.argv[1]
-    port = int(sys.argv[2])
-    operationMode = sys.argv[3]
+    ip = sys.argv[2]
+    port = int(sys.argv[3])
+    operationMode = sys.argv[1]
 else:
     print("Run like : python3 client.py <arg1 server ip 192.168.1.102> <arg2 server port 4444 >")
     exit(1)
