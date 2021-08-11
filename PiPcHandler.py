@@ -24,8 +24,6 @@ if(operationMode == "client"):
         send_data = input("Type some text to send =>");
         sckt.sendto(send_data.encode('utf-8'), (ip, port))
         print("\n\n 1. Client Sent : ", send_data, "\n\n")
-        #data, address = sckt.recvfrom(4096)
-        #print("\n\n 2. Client received : ", data.decode('utf-8'), "\n\n")
 
 elif(operationMode == "server"):
     sckt.bind(server_address)

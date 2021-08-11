@@ -1,6 +1,7 @@
 import socket
 import sys
 import os
+from wakeonlan import send_magic_packet
 
 if len(sys.argv) == 3:
     # Get "IP address of Server" and also the "port number" from argument 1 and argument 2
@@ -19,10 +20,50 @@ print("Do Ctrl+c to exit the program")
 server_address = (ip, port)
 send_data = ""
 
+
+
 while (send_data != 'q'):
-    send_data = input("Type some text to send or press q to exit=>")
+    send_data = input("1 - Check PC Status \n 2 - Opend PC \n 3 - Shut down PC")
     sckt.sendto(send_data.encode('utf-8'), (ip, port))
+    
+    if(send_data == '1'):
+        print("Pinging" + ip + '\n')
+        isPcOn = ping(ip)
+
+        if(isPcOn):
+            print("PC status : ON\n")
+        else:
+            print("PC status : OFF\n")
+
+    if(send_data == '2'):
+        print("Waking PC\n")
+        send_magic_packet("04:D9:F5:35:03:94")
+        while(not(ping(ip))):
+            print('.')
+
+
     print("\n\n 1. Client Sent : ", send_data, "\n\n")
 
 
 sckt.close()
+#"Type some text to send or press q to exit=>"
+
+
+
+
+
+def ping(host):
+    """
+    Returns True if host (str) responds to a ping request.
+    Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
+    """
+
+    # Option for the number of packets as a function of
+    param = '-n' if platform.system().lower()=='windows' else '-c'
+
+    # Building the command. Ex: "ping -c 1 google.com"
+    command = ['ping', param, '1', host]
+
+    return subprocess.call(command) == 0
+
+    
