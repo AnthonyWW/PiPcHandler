@@ -15,7 +15,7 @@ def ping(host):
     param = '-n' if platform.system().lower()=='windows' else '-c'
 
     # Building the command. Ex: "ping -c 1 google.com"
-    command = ['ping', param, '1', host]
+    command = ['ping -c 1', param, '1', host]
 
     return subprocess.call(command) == 0
 
@@ -45,7 +45,6 @@ send_data = ""
 while (send_data != 'q'):
     send_data = input("1 - Check PC Status \n 2 - Open PC \n 3 - Shut down PC \n")
     sckt.sendto(send_data.encode('utf-8'), (ip, port))
-    
     if(send_data == '1'):
         print("Pinging" + ip + '\n')
         isPcOn = ping(ip)
@@ -60,9 +59,6 @@ while (send_data != 'q'):
         send_magic_packet("04:D9:F5:35:03:94")
         while(not(ping(ip))):
             print('.')
-
-
-    print("\n\n 1. Client Sent : ", send_data, "\n\n")
 
 
 sckt.close()
