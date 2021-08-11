@@ -2,6 +2,26 @@ import socket
 import sys
 import os
 from wakeonlan import send_magic_packet
+import platform    # For getting the operating system name
+import subprocess  # For executing a shell command
+
+def ping(host):
+    """
+    Returns True if host (str) responds to a ping request.
+    Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
+    """
+
+    # Option for the number of packets as a function of
+    param = '-n' if platform.system().lower()=='windows' else '-c'
+
+    # Building the command. Ex: "ping -c 1 google.com"
+    command = ['ping', param, '1', host]
+
+    return subprocess.call(command) == 0
+
+
+
+
 
 if len(sys.argv) == 3:
     # Get "IP address of Server" and also the "port number" from argument 1 and argument 2
@@ -23,7 +43,7 @@ send_data = ""
 
 
 while (send_data != 'q'):
-    send_data = input("1 - Check PC Status \n 2 - Opend PC \n 3 - Shut down PC")
+    send_data = input("1 - Check PC Status \n 2 - Open PC \n 3 - Shut down PC \n")
     sckt.sendto(send_data.encode('utf-8'), (ip, port))
     
     if(send_data == '1'):
@@ -52,18 +72,6 @@ sckt.close()
 
 
 
-def ping(host):
-    """
-    Returns True if host (str) responds to a ping request.
-    Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
-    """
 
-    # Option for the number of packets as a function of
-    param = '-n' if platform.system().lower()=='windows' else '-c'
-
-    # Building the command. Ex: "ping -c 1 google.com"
-    command = ['ping', param, '1', host]
-
-    return subprocess.call(command) == 0
 
     
