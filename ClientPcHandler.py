@@ -15,7 +15,7 @@ def ping(host):
     param = '-n' if platform.system().lower()=='windows' else '-c'
 
     # Building the command. Ex: "ping -c 1 google.com"
-    command = ['ping -c 1', param, '1', host]
+    command = ['ping', param, '1', host]
 
     return subprocess.call(command) == 0
 
@@ -34,7 +34,7 @@ else:
 
 # Create socket for server
 sckt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, 0)
-print("Do Ctrl+c to exit the program")
+print("Do Ctrl+c to exit the program\n")
 
 
 server_address = (ip, port)
@@ -43,7 +43,7 @@ send_data = ""
 
 
 while (send_data != 'q'):
-    send_data = input("1 - Check PC Status \n 2 - Open PC \n 3 - Shut down PC \n")
+    send_data = input(" 1 - Check PC Status \n 2 - Open PC \n 3 - Shut down PC \n")
     sckt.sendto(send_data.encode('utf-8'), (ip, port))
     if(send_data == '1'):
         print("Pinging" + ip + '\n')
