@@ -3,19 +3,6 @@ import sys
 from wakeonlan import send_magic_packet
 import PcHandlerCommon as ph
 
-# def ping(host):
-#     """
-#     Returns True if host (str) responds to a ping request.
-#     Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
-#     """
-
-#     # Option for the number of packets as a function of
-#     param = '-n' if platform.system().lower()=='windows' else '-c'
-
-#     # Building the command. Ex: "ping -c 1 google.com"
-#     command = ['ping', param, '1', host, " 2>&1 >/dev/null"]
-
-#     return subprocess.call(command) == 0
 
 if len(sys.argv) == 3:
     # Get "IP address of Server" and also the "port number" from argument 1 and argument 2
@@ -40,10 +27,9 @@ while (send_data != 'q'):
 
     if(send_data == '1'):
         print("Pinging " + ip + '\n')
-        isPcOn = ph.ping(ip)
         print("\n")
 
-        if(isPcOn):
+        if(ph.ping(ip)):
             print("PC status : ON\n")
         else:
             print("PC status : OFF\n")
@@ -56,11 +42,11 @@ while (send_data != 'q'):
 
         while(not(ph.ping(ip))):
             print('.')
+            
+        print('\n')
         
         send_data = ""
     
-
-
 sckt.close()
 #"Type some text to send or press q to exit=>"
 
