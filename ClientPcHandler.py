@@ -48,7 +48,7 @@ while (send_data != 'q'):
         print('\n')
 
     if(send_data == '3'):
-        sckt.sendto(bytes(SHUTDOWN, "utf-8", (ip, port)))
+        sckt.sendto(bytes(SHUTDOWN.encode("utf-8") (ip, port)))
         
         send_data = ""
     
