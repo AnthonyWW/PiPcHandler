@@ -3,6 +3,8 @@ import sys
 from wakeonlan import send_magic_packet
 import PcHandlerCommon as ph
 
+SHUTDOWN = "shutdown"
+
 
 if len(sys.argv) == 3:
     # Get "IP address of Server" and also the "port number" from argument 1 and argument 2
@@ -30,9 +32,9 @@ while (send_data != 'q'):
         print("\n")
 
         if(ph.ping(ip)):
-            print("PC status : ON\n")
+            print("\nPC status : ON\n")
         else:
-            print("PC status : OFF\n")
+            print("\nPC status : OFF\n")
         
         send_data = ""
 
@@ -42,8 +44,11 @@ while (send_data != 'q'):
 
         while(not(ph.ping(ip))):
             print('.')
-            
+
         print('\n')
+
+    if(send_data == '3'):
+        sckt.sento(bytes(SHUTDOWN, "utf-8", (ip, port)))
         
         send_data = ""
     
