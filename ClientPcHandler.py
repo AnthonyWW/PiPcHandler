@@ -29,7 +29,7 @@ while (inputChoice != 'q'):
     inputChoice = input(" 1 - Check PC Status \n 2 - Open PC \n 3 - Shut down PC \n")
     sckt.sendto(inputChoice.encode('utf-8'), (ip, port))
 
-    if(inputChoice == ph.Choice.CHECK_PC_STATUS):
+    if(inputChoice == '1'):
         print("Pinging " + ip + '\n')
         print("\n")
 
@@ -40,7 +40,7 @@ while (inputChoice != 'q'):
         
         inputChoice = ""
 
-    if(inputChoice == ph.Choice.OPEN_PC):
+    if(inputChoice == '2'):
         print("Waking PC\n")
         send_magic_packet("04:D9:F5:35:03:94")
 
@@ -49,7 +49,7 @@ while (inputChoice != 'q'):
 
         print('\n')
 
-    if(inputChoice == ph.Choice.CLOSE_PC):
+    if(inputChoice == '3'):
         sckt.sendto(SHUTDOWN.encode("utf-8"), (ip, port))
         
         inputChoice = ""

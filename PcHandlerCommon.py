@@ -5,18 +5,10 @@ import re
 import pandas as pd
 import os, sys
 
-
-
 rx_dict = {
     'ip': re.compile(r'ip=(.*)\n'),
     'port': re.compile(r'port=(.*)\n'),
 }
-
-class Choice(Enum):
-    CHECK_PC_STATUS = 1
-    OPEN_PC = 2
-    CLOSE_PC = 3
-
 
 def ping(host):
     """
