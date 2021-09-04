@@ -40,7 +40,7 @@ while (inputChoice != 'q'):
         
         inputChoice = ""
 
-    if(inputChoice == ph.choice.OPEN_PC):
+    if(inputChoice == ph.Choice.OPEN_PC):
         print("Waking PC\n")
         send_magic_packet("04:D9:F5:35:03:94")
 
@@ -49,7 +49,7 @@ while (inputChoice != 'q'):
 
         print('\n')
 
-    if(inputChoice == ph.choice.CLOSE_PC):
+    if(inputChoice == ph.Choice.CLOSE_PC):
         sckt.sendto(SHUTDOWN.encode("utf-8"), (ip, port))
         
         inputChoice = ""
